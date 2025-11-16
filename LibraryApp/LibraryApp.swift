@@ -7,26 +7,69 @@
 
 import SwiftUI
 import SwiftData
+/*
+ MVP
+ Запуск приложения - Экран авторизации (Вход/Регистрация)
+
+ */
 
 @main
 struct LibraryApp: App {
-	var sharedModelContainer: ModelContainer = {
-		let schema = Schema([
-			Item.self,
-		])
-		let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-		do {
-			return try ModelContainer(for: schema, configurations: [modelConfiguration])
-		} catch {
-			fatalError("Could not create ModelContainer: \(error)")
-		}
-	}()
+	@AppStorage(AppConstants.storageName) private var loggedUser: String?
 
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+			Group {
+				view.preferredColorScheme(.dark)
+			}
 		}
-		.modelContainer(sharedModelContainer)
+	}
+
+	var view: some View {
+		let authType = Auth(loggedUser)
+		switch authType {
+		case .admin:
+			return AnyView(AdminTabbarView())
+		case .reader:
+			return  AnyView(ReaderTabBarView())
+		case .nonAuthorized:
+			return AnyView(AuthorizationView())
+		}
 	}
 }
+
+enum AppConstants {
+	static let storageName = "loggedUser"
+}
+
+enum AppColors {
+	case mainBackground
+	var rawValue: UIColor {
+		Helper.getColor(r: 13, g: 27, b: 42)
+	}
+}
+
+final class AppContainer {
+	static let shared = AppContainer()
+	lazy var fileManager: FileManagerAdapter = FileManagerAdapter()
+	lazy var library: Library = {
+		let (archive, client) = fileManager.load()
+		return Library(archive: archive ?? Archive(), clients: client)
+	}() {
+		didSet {
+			
+		}
+	}
+}
+
+enum Auth: String {
+	case admin, reader, nonAuthorized
+	init(_ value: String?) {
+		switch value {
+		case .some("reader"): self = .reader
+		case .some("admin"): self = .admin
+		default: self = .nonAuthorized
+		}
+	}
+}
+

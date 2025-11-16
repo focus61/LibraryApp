@@ -1,0 +1,133 @@
+{
+	"archive": {
+		"shelves": [
+			{
+				"books": {
+					"9780451524935": {
+						"title": "1984",
+						"author": "George Orwell",
+						"isbn": "9780451524935",
+						"status": "archive"
+					},
+					"9780060850524": {
+						"title": "Brave New World",
+						"author": "Aldous Huxley",
+						"isbn": "9780060850524",
+						"status": "archive"
+					},
+					"9781451673319": {
+						"title": "Fahrenheit 451",
+						"author": "Ray Bradbury",
+						"isbn": "9781451673319",
+						"status": "archive"
+					},
+					"9780061120084": {
+						"title": "To Kill a Mockingbird",
+						"author": "Harper Lee",
+						"isbn": "9780061120084",
+						"status": "archive"
+					},
+					"9780743273565": {
+						"title": "The Great Gatsby",
+						"author": "F. Scott Fitzgerald",
+						"isbn": "9780743273565",
+						"status": "archive"
+					},
+					"9781503280786": {
+						"title": "Moby-Dick",
+						"author": "Herman Melville",
+						"isbn": "9781503280786",
+						"status": "archive"
+					},
+					"9781503290563": {
+						"title": "Pride and Prejudice",
+						"author": "Jane Austen",
+						"isbn": "9781503290563",
+						"status": "archive"
+					},
+					"9780486415871": {
+						"title": "Crime and Punishment",
+						"author": "Fyodor Dostoevsky",
+						"isbn": "9780486415871",
+						"status": "archive"
+					},
+					"9780316769488": {
+						"title": "The Catcher in the Rye",
+						"author": "J. D. Salinger",
+						"isbn": "9780316769488",
+						"status": "archive"
+					},
+					"9780544003415": {
+						"title": "The Lord of the Rings",
+						"author": "J. R. R. Tolkien",
+						"isbn": "9780544003415",
+						"status": "archive"
+					},
+					"9780547928227": {
+						"title": "The Hobbit",
+						"author": "J. R. R. Tolkien",
+						"isbn": "9780547928227",
+						"status": "archive"
+					},
+					"9780199232765": {
+						"title": "War and Peace",
+						"author": "Leo Tolstoy",
+						"isbn": "9780199232765",
+						"status": "archive"
+					},
+					"9780374528379": {
+						"title": "The Brothers Karamazov",
+						"author": "Fyodor Dostoevsky",
+						"isbn": "9780374528379",
+						"status": "archive"
+					},
+					"9780486298238": {
+						"title": "Meditations",
+						"author": "Marcus Aurelius",
+						"isbn": "9780486298238",
+						"status": "archive"
+					},
+					"9780061122415": {
+						"title": "The Alchemist",
+						"author": "Paulo Coelho",
+						"isbn": "9780061122415",
+						"status": "archive"
+					},
+					"9780451526342": {
+						"title": "Animal Farm",
+						"author": "George Orwell",
+						"isbn": "9780451526342",
+						"status": "archive"
+					},
+					"9780156012195": {
+						"title": "The Little Prince",
+						"author": "Antoine de Saint-Exupéry",
+						"isbn": "9780156012195",
+						"status": "archive"
+					},
+					"9780679720201": {
+						"title": "The Stranger",
+						"author": "Albert Camus",
+						"isbn": "9780679720201",
+						"status": "archive"
+					},
+					"9780141439570": {
+						"title": "The Picture of Dorian Gray",
+						"author": "Oscar Wilde",
+						"isbn": "9780141439570",
+						"status": "archive"
+					},
+					"9780441013593": {
+						"title": "Dune",
+						"author": "Frank Herbert",
+						"isbn": "9780441013593",
+						"status": "archive"
+					}
+				},
+				"type": "a"
+			}
+		],
+		"issuedBooks": {}
+	},
+	"clients": []
+}
