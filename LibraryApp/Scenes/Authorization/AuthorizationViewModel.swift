@@ -19,7 +19,7 @@ final class AuthorizationViewModel: ObservableObject {
 	}
 	private lazy var clients: [Client] = AppContainer.shared.library.clients
 
-	func login() {
+	func loginTapped() {
 		guard !isAdmin else {
 			return loggedUser = Auth.admin.rawValue
 		}
@@ -31,7 +31,7 @@ final class AuthorizationViewModel: ObservableObject {
 			return alertMessage = AlertMessage(message: "Пароль неверный")
 		}
 		alertMessage = nil
-		loggedUser = Auth.reader.rawValue
+		loggedUser = client.id.uuidString
 	}
 }
 
