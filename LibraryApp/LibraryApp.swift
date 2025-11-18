@@ -7,18 +7,14 @@
 
 import SwiftUI
 import SwiftData
-/*
- MVP
- Запуск приложения - Экран авторизации (Вход/Регистрация)
-
- */
 
 @main
 struct LibraryApp: App {
+
 	@AppStorage(AppConstants.storageName) private var loggedUser: String?
 
 	var body: some Scene {
-		WindowGroup {
+		return WindowGroup {
 			Group {
 				view.preferredColorScheme(.dark)
 			}
@@ -55,20 +51,17 @@ final class AppContainer {
 	lazy var library: Library = {
 		let (archive, client) = fileManager.load()
 		return Library(archive: archive ?? Archive(), clients: client)
-	}() {
-		didSet {
-			
-		}
-	}
+	}()
 }
 
 enum Auth: String {
 	case admin, reader, nonAuthorized
 	init(_ value: String?) {
-		switch value {
-		case .some("reader"): self = .reader
+		let key = value?.split(separator: ":").first
+		switch key {
 		case .some("admin"): self = .admin
-		default: self = .nonAuthorized
+		case .none: self = .nonAuthorized
+		default: self = .reader
 		}
 	}
 }

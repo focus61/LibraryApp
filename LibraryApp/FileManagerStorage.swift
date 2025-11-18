@@ -63,6 +63,10 @@ class FileManagerStorage {
 			}
 		}
 	}
+
+	func getFileURL() -> URL {
+		fileURL
+	}
 }
 
 class FileManagerAdapter {
@@ -95,7 +99,19 @@ class FileManagerAdapter {
 		}
 	}
 
+	func save(_ library: Library) {
+		let libraryDTO = LibraryDTO(archive: library.archive, clients: library.clients)
+		let encoder = JSONEncoder()
+		if let data = try? encoder.encode(libraryDTO) {
+			try? storage.saveToFile(data)
+		}
+	}
+
 	func removeCache() {
 		storage.removeAllData()
+	}
+
+	func getFileURL() -> URL {
+		storage.getFileURL()
 	}
 }

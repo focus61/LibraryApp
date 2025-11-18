@@ -47,7 +47,7 @@ struct AuthorizationView: View {
 					}.padding(.top, 10)
 					Spacer()
 					Button {
-						viewModel.login()
+						viewModel.loginTapped()
 					} label: {
 						Text("Вход")
 							.foregroundColor(.white)

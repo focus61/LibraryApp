@@ -17,10 +17,10 @@ final class RegistrationViewModel: ObservableObject {
 	@Published var alertMessage: AlertMessage?
 	@AppStorage(AppConstants.storageName) private var loggedUser: String?
 
-	func checkForRegistration() {
+	func registrationTapped() {
 		let library: Library = AppContainer.shared.library
 		let clients = library.clients
-
+		let email = email.lowercased()
 		guard !clients.contains(where: { $0.email == email }) else {
 			return alertMessage = AlertMessage(message: "Пользователь зарегистрирован")
 		}
@@ -28,8 +28,9 @@ final class RegistrationViewModel: ObservableObject {
 			return alertMessage = AlertMessage(message: "Пароль должен состоять минимум из 6 символов")
 		}
 
-		library.addClient(Client(fio: fullName, email: email, password: password, city: city))
+		let client = Client(fio: fullName, email: email, password: password, city: city)
+		library.addClient(client)
 		AppContainer.shared.fileManager.save(archive: library.archive, clients: library.clients)
-		loggedUser = Auth.reader.rawValue
+		loggedUser = client.id.uuidString
 	}
 }
