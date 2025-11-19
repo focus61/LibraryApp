@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 final class LibraryViewModel: ObservableObject {
-	@AppStorage(AppConstants.storageName) var logged: String?
+	@AppStorage(AppConstants.storageName) private var logged: String?
 	@Published var query = ""
 	@Published var selectedType: SearchType = .title
 	@Published var selectedBook: Book?

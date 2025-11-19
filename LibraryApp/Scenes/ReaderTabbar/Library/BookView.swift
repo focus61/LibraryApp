@@ -77,7 +77,7 @@ struct BookView: View {
 		let exitText = Text("Выход")
 		var alertButton: Alert.Button?
 		if isArchivedBook {
-			alertButton = Alert.Button.cancel(Text("Взять книгу")) {
+			alertButton = Alert.Button.default(Text("Взять книгу")) {
 				if viewModel.tapToIssueBook(book) {
 					Task {
 						await showSuccessBanner()
@@ -86,7 +86,7 @@ struct BookView: View {
 			}
 		}
 		if canReturnBook {
-			alertButton = Alert.Button.cancel(Text("Вернуть книгу")) {
+			alertButton = Alert.Button.default(Text("Вернуть книгу")) {
 				viewModel.tapToReturnBook(book)
 				Task {
 					await showSuccessBanner()
