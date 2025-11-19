@@ -9,17 +9,33 @@ import Foundation
 
 // MARK: - 1. Классы сущности
 class Client {
-	let fio: String
+	enum Data {
+		case email, city, fio, password
+	}
+	var fio: String
 	let id: UUID
-	let email: String
-	let password: String
-	let city: String
+	var email: String
+	var password: String
+	var city: String
 	init(fio: String, email: String, password: String, city: String, id: UUID? = UUID()) {
 		self.fio = fio
 		self.id = id ?? UUID()
 		self.email = email
 		self.password = password
 		self.city = city
+	}
+
+	func change(_ data: Client.Data, text: String) {
+		switch data {
+		case .email:
+			email = text
+		case .fio:
+			fio = text
+		case .password:
+			password = text
+		case .city:
+			city = text
+		}
 	}
 }
 
@@ -190,6 +206,32 @@ class Archive {
 		}
 		return books
 	}
+
+	/// ✅
+	func randomBook() -> Book? {
+		var index = 0
+		let all = allBooks()
+		while (index < all.count - 1) {
+			let book = all.randomElement()
+			if book?.status == .archive {
+				return book
+			}
+			index += 1
+		}
+		return nil
+	}
+
+	func issuedBooksForClient(_ client: Client) -> [Book] {
+		var result = [Book]()
+		for (isbn, value) in issuedBooks where value.id == client.id {
+			for shelf in shelves {
+				if let book = shelf.books[isbn] {
+					result.append(book)
+				}
+			}
+		}
+		return result
+	}
 }
 
 class Library {
@@ -256,8 +298,32 @@ extension Library {
 		archive.clientForBook(book)
 	}
 
+	/// ✅
 	func getClient(by id: String?) -> Client? {
 		clients.first(where: { $0.id == UUID(uuidString: String(id ?? "")) })
+	}
+
+	/// ✅
+	func randomBook() -> Book? {
+		archive.randomBook()
+	}
+
+	/// ✅
+	func issuedBooksForClientId(_ clientId: String?) -> [Book] {
+		guard
+			let clientId,
+			let client = getClient(by: clientId) else { return [] }
+		return archive.issuedBooksForClient(client)
+	}
+
+	/// ✅
+	func changeClientInfo(_ client: Client?, changedData: Client.Data, text: String) {
+		guard let client else { return }
+		clients.first(where: { $0.id == client.id })?.change(changedData, text: text)
+		for (_, value) in archive.issuedBooks where value.id == client.id {
+			value.change(changedData, text: text)
+		}
+		AppContainer.shared.fileManager.save(self)
 	}
 }
 
