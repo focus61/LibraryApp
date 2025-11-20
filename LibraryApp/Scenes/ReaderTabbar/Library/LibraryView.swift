@@ -41,24 +41,27 @@ struct LibraryView: View {
 						.onChange(of: viewModel.selectedType) {
 							viewModel.resetAndLoad()
 						}
-
-					List {
-						ForEach(viewModel.loadedBooks) { book in
-							BookView(viewModel: viewModel, book: book)
-								.onAppear {
-									if book.isbn == viewModel.loadedBooks.last?.isbn {
-										viewModel.loadMore()
+					ZStack {
+						List {
+							ForEach(viewModel.loadedBooks) { book in
+								BookView(viewModel: viewModel, book: book)
+									.onAppear {
+										if book.isbn == viewModel.loadedBooks.last?.isbn {
+											viewModel.loadMore()
+										}
 									}
-								}
-						}
-
-						if viewModel.loadedBooks.count < viewModel.filteredBooks.count {
-							HStack {
-								Spacer()
-								ProgressView()
-								Spacer()
 							}
-							.listRowSeparator(.hidden)
+							if viewModel.loadedBooks.count < viewModel.filteredBooks.count {
+								HStack {
+									Spacer()
+									ProgressView()
+									Spacer()
+								}
+								.listRowSeparator(.hidden)
+							}
+						}
+						if viewModel.loadedBooks.isEmpty {
+							Text("Ничего не найдено")
 						}
 					}
 				}
