@@ -19,6 +19,9 @@ struct MyBooksView: View {
 				List(viewModel.books) {
 					SimpleBookView(viewModel: viewModel, book: $0)
 				}
+				if viewModel.books.isEmpty {
+					Text("Список пуст")
+				}
 				if viewModel.showSuccessBanner {
 					VStack {
 						Spacer()

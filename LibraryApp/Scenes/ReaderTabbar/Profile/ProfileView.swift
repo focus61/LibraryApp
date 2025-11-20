@@ -22,29 +22,46 @@ struct ProfileView: View {
 						.listRowInsets(EdgeInsets())
 						.listRowBackground(Color.clear)
 						Section {
-							NavigationLink {
-								let viewModel =  EditProfileViewModel(client: client) {
-									self.viewModel.reloadClient()
+							HStack {
+								Image(systemName: "repeat.1").foregroundStyle(.blue)
+								Button {
+									viewModel.randomBookTapped()
+								} label: {
+									Text("Случайная книга")
 								}
-								EditProfileView(viewModel: viewModel)
-							} label: {
-								Text("Редактировать данные")
 							}
-							NavigationLink {
-								MyBooksView(viewModel: MyBooksViewModel(client: client))
-							} label: {
-								Text("Мои книги")
+							HStack {
+								Image(systemName: "square.and.arrow.up").foregroundStyle(.blue)
+								Button {
+									viewModel.uploadTapped()
+								} label: {
+									Text("Выгрузить БД")
+								}
 							}
-							Button {
-								viewModel.randomBookTapped()
-							} label: {
-								Text("Случайная книга").foregroundStyle(.white)
+						}
+						Section {
+							HStack {
+								Image(systemName: "person.crop.circle.badge.clock.fill")
+
+								NavigationLink {
+									let viewModel =  EditProfileViewModel(client: client) {
+										self.viewModel.reloadClient()
+									}
+									EditProfileView(viewModel: viewModel)
+								} label: {
+									Text("Редактировать данные")
+								}
 							}
-							Button {
-								viewModel.uploadTapped()
-							} label: {
-								Text("Выгрузить БД")
+							HStack {
+								Image(systemName: "books.vertical.circle.fill")
+								NavigationLink {
+									MyBooksView(viewModel: MyBooksViewModel(client: client))
+								} label: {
+									Text("Мои книги")
+								}
 							}
+						}
+						Section {
 							Button {
 								viewModel.logoutTapped()
 							} label: {
@@ -121,16 +138,24 @@ struct InfoView: View {
 			RoundedRectangle(cornerRadius: 20)
 				.foregroundStyle(Color(uiColor: UIColor.secondarySystemGroupedBackground))
 			HStack {
-				Image(systemName: "person.crop.circle").resizable().frame(width: 50, height: 50)
+				Image(systemName: "person.crop.circle")
+					.resizable()
+					.frame(width: 50, height: 50)
 					.padding(.leading)
-					.foregroundStyle(Color.gray)
+					.foregroundStyle(Color(uiColor: .lightGray))
 				VStack {
-					Text(client?.fio ?? "Афонин Александр Романович")
-					Text(client?.city ?? "Санкт-Петербург")
-				}.padding(.leading, 10)
+					HStack {
+						Text(client?.fio ?? "Афонин Александр Романович").font(.title3)
+						Spacer()
+					}
+					HStack {
+						Text(client?.city ?? "Санкт-Петербург").font(.default).foregroundStyle(Color(uiColor: .lightGray))
+						Spacer()
+					}
+				}.padding(.horizontal, 10)
 				Spacer()
 			}
 		}
-		.frame(height: 80)
+		.frame(height: 90)
 	}
 }
