@@ -17,8 +17,14 @@ final class LibraryViewModel: ObservableObject {
 	@Published var showSuccessBanner = false
 
 	var filteredBooks: [Book] {
-		guard !query.isEmpty else { return allBooks }
-		return library.searchBook(by: selectedType, value: query)
+		guard !query.isEmpty else {
+			return allBooks.filter {
+				isArchivedBook($0) || self.canReturnBook($0)
+			}
+		}
+		return library.searchBook(by: selectedType, value: query).filter {
+			isArchivedBook($0) || self.canReturnBook($0)
+		}
 	}
 
 	var alertInfo: String {
@@ -45,7 +51,7 @@ ISBN: \(selectedBook.isbn)
 	private var currentIndex = 0
 
 	private let library = AppContainer.shared.library
-	private var allBooks: [Book] { AppContainer.shared.library.archive.allBooks() }
+	private var allBooks: [Book] { AppContainer.shared.library.allBooks() }
 
 	func resetAndLoad() {
 		loadedBooks.removeAll()

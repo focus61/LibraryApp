@@ -35,6 +35,9 @@ struct MyBooksView: View {
 			.navigationTitle("Мои книги")
 			.navigationBarTitleDisplayMode(.large)
 		}
+		.onAppear {
+			viewModel.reloadBooks()
+		}
 	}
 }
 

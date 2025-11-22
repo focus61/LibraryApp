@@ -51,7 +51,6 @@ struct RegistrationView: View {
 				Button {
 					viewModel.registrationTapped()
 				} label: {
-					
 					Text("Зарегистрироваться")
 						.foregroundColor(.white)
 						.padding()

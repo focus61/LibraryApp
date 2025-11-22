@@ -15,7 +15,7 @@ final class AuthorizationViewModel: ObservableObject {
 
 	@AppStorage(AppConstants.storageName) private var loggedUser: String?
 	private var isAdmin: Bool {
-		email == "admin"
+		email.lowercased() == "admin"
 	}
 	private lazy var clients: [Client] = AppContainer.shared.library.clients
 

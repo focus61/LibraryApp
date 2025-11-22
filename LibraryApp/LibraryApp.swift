@@ -25,7 +25,7 @@ struct LibraryApp: App {
 		let authType = Auth(loggedUser)
 		switch authType {
 		case .admin:
-			return AnyView(AdminTabbarView())
+			return AnyView(AdminView())
 		case .reader:
 			return  AnyView(ReaderTabBarView())
 		case .nonAuthorized:
@@ -57,8 +57,8 @@ final class AppContainer {
 enum Auth: String {
 	case admin, reader, nonAuthorized
 	init(_ value: String?) {
-		let key = value?.split(separator: ":").first
-		switch key {
+
+		switch value {
 		case .some("admin"): self = .admin
 		case .none: self = .nonAuthorized
 		default: self = .reader
