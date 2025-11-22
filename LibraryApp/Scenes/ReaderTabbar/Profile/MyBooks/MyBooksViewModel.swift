@@ -37,4 +37,8 @@ ISBN: \(selectedBook.isbn)
 		library.returnBook(book)
 		books = AppContainer.shared.library.issuedBooksForClientId(client?.id.uuidString)
 	}
+
+	func reloadBooks() {
+		books = AppContainer.shared.library.issuedBooksForClientId(client?.id.uuidString)
+	}
 }

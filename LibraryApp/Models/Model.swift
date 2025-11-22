@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - 1. Классы сущности
-class Client {
+class Client: Identifiable {
 	enum Data {
 		case email, city, fio, password
 	}
@@ -25,7 +25,7 @@ class Client {
 		self.city = city
 	}
 
-	func change(_ data: Client.Data, text: String) {
+	fileprivate func change(_ data: Client.Data, text: String) {
 		switch data {
 		case .email:
 			email = text
@@ -39,32 +39,39 @@ class Client {
 	}
 }
 
-class Shelf {
-	var books: [String: Book] 
+class Shelf: Identifiable {
+	var books: [String: Book]
 	let type: ShelfType
-
+	var id: String {
+		type.capitalized
+	}
 	init(type: ShelfType, books: [String: Book] = [:]) {
 		self.books = books
 		self.type = type
 	}
 
-	func addBook(_ book: Book) {
+	fileprivate func addBook(_ book: Book) {
 		books[book.isbn] = book
 	}
 
-	func removeBook(_ book: Book) {
+	fileprivate func removeBook(_ book: Book) {
 		books[book.isbn] = nil
 	}
 
-	func changeStatus(for book: Book, status: Book.Status) {
+	fileprivate func changeStatus(for book: Book, status: Book.Status) {
 		books[book.isbn]?.status = status
+	}
+
+	/// ✅
+	fileprivate func booksArray() -> [Book] {
+		books.map { $0.value }
 	}
 
 	// MARK: СТРАТЕГИЯ
 	/// Паттерн стратегия, тк идет разделение на типы поиска, но с использованием enum, а не отдельных объектов
 	/// Позволяет легко добавлять новые критерии поиска и разделяет алгоритмы поиска от основной логики архива
 	/// ✅
-	func search(by type: SearchType, value: String) -> [String: Book] {
+	fileprivate func search(by type: SearchType, value: String) -> [String: Book] {
 		books.filter { dict in
 			switch type {
 			case .author:
@@ -75,11 +82,16 @@ class Shelf {
 		}
 	}
 
-	enum ShelfType: String, CaseIterable {
-		case a, b, c, d, e, f, g
+	enum ShelfType: String, CaseIterable, Identifiable, Comparable {
+		static func < (lhs: Shelf.ShelfType, rhs: Shelf.ShelfType) -> Bool {
+			lhs.rawValue < rhs.rawValue
+		}
+
+		case a, b, c, d, e, f, g, h, i, j, k, l
 		var capitalized: String {
 			rawValue.capitalized
 		}
+		var id: Self { self }
 	}
 }
 
@@ -96,7 +108,7 @@ class Book: Identifiable {
 		self.status = status
 	}
 
-	func changeStatus(to status: Status) {
+	fileprivate func changeStatus(to status: Status) {
 		self.status = status
 	}
 
@@ -120,7 +132,7 @@ class Archive {
 	}
 
 	/// Сделать запрос на книгу(местонахождение) ✅
-	func shelf(for searchBook: Book) -> Shelf? {
+	fileprivate func shelf(for searchBook: Book) -> Shelf? {
 		for shelf in shelves {
 			if shelf.books[searchBook.isbn] != nil {
 				return shelf
@@ -129,31 +141,39 @@ class Archive {
 		return nil
 	}
 
+	/// ✅
+	fileprivate func shelf(for type: Shelf.ShelfType) -> Shelf {
+		return shelves.first(where: { $0.type == type }) ?? Shelf(type: .a)
+	}
+
 	/// Создать полку
-	func addShelf(_ shelf: Shelf) {
+	fileprivate func addShelf(_ shelf: Shelf) {
 		shelves.append(shelf)
+		shelves = shelves.sorted { left, right in
+			left.type.id < right.type.id
+		}
 	}
 
 	/// Удалить полку
-	func removeShelf(_ shelf: Shelf) {
+	fileprivate func removeShelf(_ shelf: Shelf) {
 		guard let index = shelves.firstIndex(where: { $0.type == shelf.type }) else {
 			return
 		}
 		shelves.remove(at: index)
 	}
 
-	/// Добавить книгу на полку(впервые)
-	func addBook(_ book: Book, to shelf: Shelf) {
+	/// Добавить книгу на полку(впервые) ✅
+	fileprivate func addBook(_ book: Book, to shelf: Shelf) {
 		shelf.addBook(book)
 	}
 
-	/// Удалить книгу с полки(читать как удалить с БД)
-	func removeBook(_ book: Book, from shelf: Shelf) {
+	/// Удалить книгу с полки(читать как удалить с БД) ✅
+	fileprivate func removeBook(_ book: Book, from shelf: Shelf) {
 		shelf.removeBook(book)
 	}
 
 	/// Выдать книгу библиотекарю, если она доступна ✅
-	func issueBook(_ searchBook: Book, for client: Client) -> Bool {
+	fileprivate func issueBook(_ searchBook: Book, for client: Client) -> Bool {
 		for shelf in shelves {
 			if let book = shelf.books[searchBook.isbn] {
 				shelf.books[searchBook.isbn]?.status = .unavailable
@@ -165,19 +185,19 @@ class Archive {
 	}
 
 	/// Вернуть книгу на полку ✅
-	func returnBook(_ book: Book) {
+	fileprivate func returnBook(_ book: Book) {
 		guard let shelf = shelf(for: book) else { return }
 		shelf.changeStatus(for: book, status: .archive)
 		issuedBooks[book.isbn] = nil
 	}
 
 	/// ✅
-	func clientForBook(_ book: Book) -> Client? {
+	fileprivate func clientForBook(_ book: Book) -> Client? {
 		issuedBooks[book.isbn]
 	}
 
 	/// ✅
-	func search(by type: SearchType, value: String) -> [String: Book] {
+	fileprivate func search(by type: SearchType, value: String) -> [String: Book] {
 		var result: [String: Book] = [:]
 		for shelf in shelves {
 			let books = shelf.search(by: type, value: value)
@@ -188,16 +208,8 @@ class Archive {
 		return result
 	}
 
-	func freeShelfType() -> Shelf.ShelfType {
-		var types = Shelf.ShelfType.allCases
-		for shelf in shelves {
-			types.removeAll(where: { $0 == shelf.type })
-		}
-		return types.first ?? .g
-	}
-
 	/// ✅
-	func allBooks() -> [Book] {
+	fileprivate func allBooks() -> [Book] {
 		var books: [Book] = []
 		for shelf in shelves {
 			for (_, book) in shelf.books {
@@ -208,7 +220,7 @@ class Archive {
 	}
 
 	/// ✅
-	func randomBook() -> Book? {
+	fileprivate func randomBook() -> Book? {
 		var index = 0
 		let all = allBooks()
 		while (index < all.count - 1) {
@@ -221,7 +233,8 @@ class Archive {
 		return nil
 	}
 
-	func issuedBooksForClient(_ client: Client) -> [Book] {
+	/// ✅
+	fileprivate func issuedBooksForClient(_ client: Client) -> [Book] {
 		var result = [Book]()
 		for (isbn, value) in issuedBooks where value.id == client.id {
 			for shelf in shelves {
@@ -232,11 +245,15 @@ class Archive {
 		}
 		return result
 	}
+
+	fileprivate func containsBook(with isbn: String) -> Bool {
+		shelves.contains(where: { $0.books[isbn] != nil})
+	}
 }
 
 class Library {
 	let archive: Archive
-	var clients: [Client]
+	private(set) var clients: [Client]
 	init(archive: Archive, clients: [Client]) {
 		self.archive = archive
 		self.clients = clients
@@ -245,13 +262,6 @@ class Library {
 
 /// Функционал для клиента
 extension Library {
-//	- Добавить клиента
-//	- Удалить клиента
-//	- Дать книгу
-//	- Забрать книгу
-//	- Запрос местонахождения книги
-//	- Поиск книг по названию
-//	- Поиск книг по автору
 
 	/// Добавить клиента ✅
 	func addClient(_ client: Client) {
@@ -259,7 +269,7 @@ extension Library {
 		AppContainer.shared.fileManager.save(self)
 	}
 
-	/// Удалить клиента
+	/// Удалить клиента ✅
 	func removeClient(_ client: Client) {
 		guard let index = clients.firstIndex(where: { $0 === client }) else {
 			return
@@ -288,7 +298,7 @@ extension Library {
 		// Местоположение, что делать с ним?
 	}
 
-	/// ✅
+	/// Поиск книг по введенному значению✅
 	func searchBook(by type: SearchType, value: String) -> [Book] {
 		archive.search(by: type, value: value).reduce(into: []) { $0.append($1.value) }
 	}
@@ -298,17 +308,17 @@ extension Library {
 		archive.clientForBook(book)
 	}
 
-	/// ✅
+	/// Получить клиента по id✅
 	func getClient(by id: String?) -> Client? {
 		clients.first(where: { $0.id == UUID(uuidString: String(id ?? "")) })
 	}
 
-	/// ✅
+	/// Получить случайную книгу✅
 	func randomBook() -> Book? {
 		archive.randomBook()
 	}
 
-	/// ✅
+	/// Получить список книг привязанных к клиенту✅
 	func issuedBooksForClientId(_ clientId: String?) -> [Book] {
 		guard
 			let clientId,
@@ -316,7 +326,7 @@ extension Library {
 		return archive.issuedBooksForClient(client)
 	}
 
-	/// ✅
+	/// Изменить инфо о клиенте✅
 	func changeClientInfo(_ client: Client?, changedData: Client.Data, text: String) {
 		guard let client else { return }
 		clients.first(where: { $0.id == client.id })?.change(changedData, text: text)
@@ -324,6 +334,27 @@ extension Library {
 			value.change(changedData, text: text)
 		}
 		AppContainer.shared.fileManager.save(self)
+	}
+
+	/// Получить свободную полку, которой нет в массиве shelves
+	func checkFreeShelf() -> Shelf {
+		// a b c d ... l (allCases)
+		// a c d e (shelves)
+		// должен вернуть b
+		let type = Shelf.ShelfType.allCases.first { shelfType in
+			!archive.shelves.contains { $0.type == shelfType }
+		} ?? .a
+		return Shelf(type: type)
+	}
+
+	/// Есть ли в базе книга с введенным isbn
+	func containsBook(with isbn: String) -> Bool {
+		archive.containsBook(with: isbn)
+	}
+
+	/// Получение всех книг
+	func allBooks() -> [Book] {
+		archive.allBooks()
 	}
 }
 
@@ -348,24 +379,23 @@ extension Library {
 		AppContainer.shared.fileManager.save(self)
 	}
 
-	/// Добавление книги в бд
-	func addBook(_ book: Book) {
-		defer {
-			AppContainer.shared.fileManager.save(self)
-		}
-		guard let shelf = archive.shelf(for: book) else {
-			let shelfType = archive.freeShelfType()
-			archive.addBook(book, to: Shelf(type: shelfType))
-			return
-		}
+	/// Добавление книги в бд ✅
+	func addBook(_ book: Book, to shelfType: Shelf.ShelfType) {
+		let shelf = archive.shelf(for: shelfType)
 		archive.addBook(book, to: shelf)
+		AppContainer.shared.fileManager.save(self)
 	}
 
-	/// Удаление книги из бд
+	/// Удаление книги из бд ✅
 	func removeBook(_ book: Book) {
 		guard let shelf = archive.shelf(for: book) else { return }
 		archive.removeBook(book, from: shelf)
 		AppContainer.shared.fileManager.save(self)
+	}
+
+	/// Получение списка книг содержащихся на полке
+	func booksArray(for shelf: Shelf) -> [Book] {
+		shelf.booksArray()
 	}
 }
 

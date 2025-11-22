@@ -11,15 +11,13 @@ struct BookView: View {
 	@ObservedObject var viewModel: LibraryViewModel
 	let book: Book
 	private enum BookStatus {
-		case canReturn, available, unavailable
+		case canReturn, available
 		var color: Color {
 			switch self {
 			case .canReturn:
 				.gray
 			case .available:
 				.green
-			case .unavailable:
-				.red
 			}
 		}
 
@@ -29,19 +27,14 @@ struct BookView: View {
 				"arrowshape.right.circle.fill"
 			case .available:
 				"checkmark.circle.fill"
-			case .unavailable:
-				"xmark.circle.fill"
 			}
 		}
 
-		init(canReturn: Bool, bookStatus: Book.Status) {
-			if canReturn {
-				self = .canReturn
-			} else {
-				self = bookStatus == .archive ? .available : .unavailable
-			}
+		init(canReturn: Bool) {
+			self = canReturn ? .canReturn : .available
 		}
 	}
+
 	var body: some View {
 		HStack {
 			VStack {
@@ -55,8 +48,7 @@ struct BookView: View {
 				}
 			}
 			let bookStatus = BookStatus(
-				canReturn: viewModel.canReturnBook(book),
-				bookStatus: book.status
+				canReturn: viewModel.canReturnBook(book)
 			)
 			Image(systemName: bookStatus.imageName)
 				.resizable()
@@ -71,25 +63,23 @@ struct BookView: View {
 		}
 	}
 	func alert(_ book: Book) -> Alert {
-		let isArchivedBook = viewModel.isArchivedBook(book)
 		let canReturnBook = viewModel.canReturnBook(book)
 		let text = Text(viewModel.alertInfo)
 		let exitText = Text("Выход")
 		var alertButton: Alert.Button?
-		if isArchivedBook {
-			alertButton = Alert.Button.default(Text("Взять книгу")) {
-				if viewModel.tapToIssueBook(book) {
-					Task {
-						await showSuccessBanner()
-					}
-				}
-			}
-		}
 		if canReturnBook {
 			alertButton = Alert.Button.default(Text("Вернуть книгу")) {
 				viewModel.tapToReturnBook(book)
 				Task {
 					await showSuccessBanner()
+				}
+			}
+		} else {
+			alertButton = Alert.Button.default(Text("Взять книгу")) {
+				if viewModel.tapToIssueBook(book) {
+					Task {
+						await showSuccessBanner()
+					}
 				}
 			}
 		}
