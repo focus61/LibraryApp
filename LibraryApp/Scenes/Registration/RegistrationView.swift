@@ -49,9 +49,8 @@ struct RegistrationView: View {
 			VStack {
 				Spacer()
 				Button {
-					viewModel.checkForRegistration()
+					viewModel.registrationTapped()
 				} label: {
-					
 					Text("Зарегистрироваться")
 						.foregroundColor(.white)
 						.padding()

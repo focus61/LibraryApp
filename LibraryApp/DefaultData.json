@@ -1,133 +1,93 @@
 {
-	"archive": {
-		"shelves": [
-			{
-				"books": {
-					"9780451524935": {
-						"title": "1984",
-						"author": "George Orwell",
-						"isbn": "9780451524935",
-						"status": "archive"
-					},
-					"9780060850524": {
-						"title": "Brave New World",
-						"author": "Aldous Huxley",
-						"isbn": "9780060850524",
-						"status": "archive"
-					},
-					"9781451673319": {
-						"title": "Fahrenheit 451",
-						"author": "Ray Bradbury",
-						"isbn": "9781451673319",
-						"status": "archive"
-					},
-					"9780061120084": {
-						"title": "To Kill a Mockingbird",
-						"author": "Harper Lee",
-						"isbn": "9780061120084",
-						"status": "archive"
-					},
-					"9780743273565": {
-						"title": "The Great Gatsby",
-						"author": "F. Scott Fitzgerald",
-						"isbn": "9780743273565",
-						"status": "archive"
-					},
-					"9781503280786": {
-						"title": "Moby-Dick",
-						"author": "Herman Melville",
-						"isbn": "9781503280786",
-						"status": "archive"
-					},
-					"9781503290563": {
-						"title": "Pride and Prejudice",
-						"author": "Jane Austen",
-						"isbn": "9781503290563",
-						"status": "archive"
-					},
-					"9780486415871": {
-						"title": "Crime and Punishment",
-						"author": "Fyodor Dostoevsky",
-						"isbn": "9780486415871",
-						"status": "archive"
-					},
-					"9780316769488": {
-						"title": "The Catcher in the Rye",
-						"author": "J. D. Salinger",
-						"isbn": "9780316769488",
-						"status": "archive"
-					},
-					"9780544003415": {
-						"title": "The Lord of the Rings",
-						"author": "J. R. R. Tolkien",
-						"isbn": "9780544003415",
-						"status": "archive"
-					},
-					"9780547928227": {
-						"title": "The Hobbit",
-						"author": "J. R. R. Tolkien",
-						"isbn": "9780547928227",
-						"status": "archive"
-					},
-					"9780199232765": {
-						"title": "War and Peace",
-						"author": "Leo Tolstoy",
-						"isbn": "9780199232765",
-						"status": "archive"
-					},
-					"9780374528379": {
-						"title": "The Brothers Karamazov",
-						"author": "Fyodor Dostoevsky",
-						"isbn": "9780374528379",
-						"status": "archive"
-					},
-					"9780486298238": {
-						"title": "Meditations",
-						"author": "Marcus Aurelius",
-						"isbn": "9780486298238",
-						"status": "archive"
-					},
-					"9780061122415": {
-						"title": "The Alchemist",
-						"author": "Paulo Coelho",
-						"isbn": "9780061122415",
-						"status": "archive"
-					},
-					"9780451526342": {
-						"title": "Animal Farm",
-						"author": "George Orwell",
-						"isbn": "9780451526342",
-						"status": "archive"
-					},
-					"9780156012195": {
-						"title": "The Little Prince",
-						"author": "Antoine de Saint-Exupéry",
-						"isbn": "9780156012195",
-						"status": "archive"
-					},
-					"9780679720201": {
-						"title": "The Stranger",
-						"author": "Albert Camus",
-						"isbn": "9780679720201",
-						"status": "archive"
-					},
-					"9780141439570": {
-						"title": "The Picture of Dorian Gray",
-						"author": "Oscar Wilde",
-						"isbn": "9780141439570",
-						"status": "archive"
-					},
-					"9780441013593": {
-						"title": "Dune",
-						"author": "Frank Herbert",
-						"isbn": "9780441013593",
-						"status": "archive"
-					}
-				},
-				"type": "a"
-			}
-		],
-		"issuedBooks": {}
-	},
-	"clients": []
+  "clients": [],
+  "archive": {
+	"issuedBooks": {},
+	"shelves": [
+	  {
+		"type": "a",
+		"books": {
+		  "9780000001001": { "title": "Война и мир", "author": "Лев Толстой", "isbn": "9780000001001", "status": "archive" },
+		  "9780000001002": { "title": "Анна Каренина", "author": "Лев Толстой", "isbn": "9780000001002", "status": "archive" },
+		  "9780000001003": { "title": "Идиот", "author": "Фёдор Достоевский", "isbn": "9780000001003", "status": "archive" },
+		  "9780000001004": { "title": "Братья Карамазовы", "author": "Фёдор Достоевский", "isbn": "9780000001004", "status": "archive" },
+		  "9780000001005": { "title": "Преступление и наказание", "author": "Фёдор Достоевский", "isbn": "9780000001005", "status": "archive" },
+		  "9780000001006": { "title": "Белая гвардия", "author": "Михаил Булгаков", "isbn": "9780000001006", "status": "archive" },
+		  "9780000001007": { "title": "Собачье сердце", "author": "Михаил Булгаков", "isbn": "9780000001007", "status": "archive" }
+		}
+	  },
+	  {
+		"type": "b",
+		"books": {
+		  "9780000001008": { "title": "Мастер и Маргарита", "author": "Михаил Булгаков", "isbn": "9780000001008", "status": "archive" },
+		  "9780000001009": { "title": "Евгений Онегин", "author": "Александр Пушкин", "isbn": "9780000001009", "status": "archive" },
+		  "9780000001010": { "title": "Капитанская дочка", "author": "Александр Пушкин", "isbn": "9780000001010", "status": "archive" },
+		  "9780000001011": { "title": "Герой нашего времени", "author": "Михаил Лермонтов", "isbn": "9780000001011", "status": "archive" },
+		  "9780000001012": { "title": "Доктор Живаго", "author": "Борис Пастернак", "isbn": "9780000001012", "status": "archive" },
+		  "9780000001013": { "title": "Тихий Дон", "author": "Михаил Шолохов", "isbn": "9780000001013", "status": "archive" },
+		  "9780000001014": { "title": "Судьба человека", "author": "Михаил Шолохов", "isbn": "9780000001014", "status": "archive" }
+		}
+	  },
+	  {
+		"type": "c",
+		"books": {
+		  "9780000001015": { "title": "Обломов", "author": "Иван Гончаров", "isbn": "9780000001015", "status": "archive" },
+		  "9780000001016": { "title": "Обыкновенная история", "author": "Иван Гончаров", "isbn": "9780000001016", "status": "archive" },
+		  "9780000001017": { "title": "Записки охотника", "author": "Иван Тургенев", "isbn": "9780000001017", "status": "archive" },
+		  "9780000001018": { "title": "Отцы и дети", "author": "Иван Тургенев", "isbn": "9780000001018", "status": "archive" },
+		  "9780000001019": { "title": "Дама с собачкой", "author": "Антон Чехов", "isbn": "9780000001019", "status": "archive" },
+		  "9780000001020": { "title": "Палата №6", "author": "Антон Чехов", "isbn": "9780000001020", "status": "archive" },
+		  "9780000001021": { "title": "Вишнёвый сад", "author": "Антон Чехов", "isbn": "9780000001021", "status": "archive" }
+		}
+	  },
+	  {
+		"type": "d",
+		"books": {
+		  "9780000001022": { "title": "Двенадцать стульев", "author": "Ильф и Петров", "isbn": "9780000001022", "status": "archive" },
+		  "9780000001023": { "title": "Золотой телёнок", "author": "Ильф и Петров", "isbn": "9780000001023", "status": "archive" },
+		  "9780000001024": { "title": "Чевенгур", "author": "Андрей Платонов", "isbn": "9780000001024", "status": "archive" },
+		  "9780000001025": { "title": "Котлован", "author": "Андрей Платонов", "isbn": "9780000001025", "status": "archive" },
+		  "9780000001026": { "title": "Лолита", "author": "Владимир Набоков", "isbn": "9780000001026", "status": "archive" },
+		  "9780000001027": { "title": "Дар", "author": "Владимир Набоков", "isbn": "9780000001027", "status": "archive" },
+		  "9780000001028": { "title": "Приглашение на казнь", "author": "Владимир Набоков", "isbn": "9780000001028", "status": "archive" }
+		}
+	  },
+	  {
+		"type": "e",
+		"books": {
+		  "9780000001029": { "title": "Архипелаг ГУЛАГ", "author": "Александр Солженицын", "isbn": "9780000001029", "status": "archive" },
+		  "9780000001030": { "title": "Один день Ивана Денисовича", "author": "Александр Солженицын", "isbn": "9780000001030", "status": "archive" },
+		  "9780000001031": { "title": "Раковый корпус", "author": "Александр Солженицын", "isbn": "9780000001031", "status": "archive" },
+		  "9780000001032": { "title": "Жизнь и судьба", "author": "Василий Гроссман", "isbn": "9780000001032", "status": "archive" },
+		  "9780000001033": { "title": "Тихие истории", "author": "Василий Гроссман", "isbn": "9780000001033", "status": "archive" },
+		  "9780000001034": { "title": "Метро 2033", "author": "Дмитрий Глуховский", "isbn": "9780000001034", "status": "archive" },
+		  "9780000001035": { "title": "Будущее", "author": "Дмитрий Глуховский", "isbn": "9780000001035", "status": "archive" }
+		}
+	  },
+	  {
+		"type": "f",
+		"books": {
+		  "9780000001036": { "title": "Зулейха открывает глаза", "author": "Гузель Яхина", "isbn": "9780000001036", "status": "archive" },
+		  "9780000001037": { "title": "Дети мои", "author": "Гузель Яхина", "isbn": "9780000001037", "status": "archive" },
+		  "9780000001038": { "title": "Петровы в гриппе", "author": "Алексей Сальников", "isbn": "9780000001038", "status": "archive" },
+		  "9780000001039": { "title": "Отдел", "author": "Алексей Сальников", "isbn": "9780000001039", "status": "archive" },
+		  "9780000001040": { "title": "Санькя", "author": "Захар Прилепин", "isbn": "9780000001040", "status": "archive" },
+		  "9780000001041": { "title": "Обитель", "author": "Захар Прилепин", "isbn": "9780000001041", "status": "archive" },
+		  "9780000001042": { "title": "Час быка", "author": "Иван Ефремов", "isbn": "9780000001042", "status": "archive" }
+		}
+	  },
+	  {
+		"type": "g",
+		"books": {
+		  "9780000001043": { "title": "Туманность Андромеды", "author": "Иван Ефремов", "isbn": "9780000001043", "status": "archive" },
+		  "9780000001044": { "title": "Понедельник начинается в субботу", "author": "Братья Стругацкие", "isbn": "9780000001044", "status": "archive" },
+		  "9780000001045": { "title": "Трудно быть богом", "author": "Братья Стругацкие", "isbn": "9780000001045", "status": "archive" },
+		  "9780000001046": { "title": "Пикник на обочине", "author": "Братья Стругацкие", "isbn": "9780000001046", "status": "archive" },
+		  "9780000001047": { "title": "Град обреченный", "author": "Братья Стругацкие", "isbn": "9780000001047", "status": "archive" },
+		  "9780000001048": { "title": "Детство", "author": "Лев Толстой", "isbn": "9780000001048", "status": "archive" },
+		  "9780000001049": { "title": "Юность", "author": "Лев Толстой", "isbn": "9780000001049", "status": "archive" },
+		  "9780000001050": { "title": "Отрочество", "author": "Лев Толстой", "isbn": "9780000001050", "status": "archive" }
+		}
+	  }
+	]
+  }
 }
